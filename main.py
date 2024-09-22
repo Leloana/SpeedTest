@@ -1,7 +1,7 @@
 from servidorUDP import start_udp_server
 from clienteUDP import start_udp_client
-from servidor import start_tcp_server
-from cliente import start_tcp_client
+from servidorTCP import start_tcp_server
+from clienteTCP import start_tcp_client
 import socket
 
 def get_local_ip():
@@ -33,10 +33,17 @@ if __name__ == "__main__":
     if formato == 0: print("local ip : "+ get_local_ip())
     if formato == 1 : 
         ipServer = input("ip server: ")
-
+    
+    #=========== UDP ==============
     if tipo == 0 :
-        if formato == "client": start_udp_client()
+        # ============= CLIENT =============
+        if formato == 1: start_udp_client()
+        # ============== SERVER ===========
         else: start_tcp_server()
+
+    # =============== TCP =============
     if tipo == 1 :
-        if formato == "client": start_tcp_client()
+        # ============== CLIENT =============
+        if formato == 1: start_tcp_client()
+        # =============== SERVER ===========
         else: start_tcp_server()

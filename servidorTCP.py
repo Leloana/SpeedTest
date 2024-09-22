@@ -90,7 +90,7 @@ def start_tcp_server():
     with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
         s.bind((HOST, PORT))
         s.listen()
-        print(f"Servidor ouvindo na porta {PORT}...")
+        print(f"Started a TCP server -> port:{PORT}...")
 
         while True:
             conn, addr = s.accept()  # Aceitar conexões indefinidamente

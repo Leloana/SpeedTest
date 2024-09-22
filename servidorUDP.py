@@ -24,7 +24,7 @@ def generate_test_string():
 def start_udp_server():
     with socket.socket(socket.AF_INET, socket.SOCK_DGRAM) as s:
         s.bind((HOST, PORT))
-        print(f"Servidor ouvindo na porta {PORT}...")
+        print(f"Started an UDP server -> port:{PORT}...")
 
         while True:
             # FASE 1: Receber pacotes do cliente por 20 segundos

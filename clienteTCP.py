@@ -24,7 +24,7 @@ def start_tcp_client(HOST):
     while True:  # Manter o cliente em execução para realizar múltiplas transferências
         with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
             s.connect((HOST, PORT))
-            print(f"Conectado ao servidor {HOST}:{PORT}")
+            print(f"Started a TCP client -> host/port:{HOST}:{PORT}")
 
             # FASE 1: Enviar múltiplos pacotes de 500 bytes por 20 segundos (UPLOAD)
             data_to_send = generate_test_string() * 2000
