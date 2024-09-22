@@ -24,7 +24,7 @@ def generate_test_string():
 def handle_client(conn):
     """Função para lidar com a conexão de um cliente"""
     with conn:
-        print(f"Conectado a {conn.getpeername()}")
+        print(f"Conected to {conn.getpeername()}")
 
         # FASE 1: Receber múltiplos pacotes do cliente (esperando 1 MB, 2000 pacotes)
         start_time = time.time()
@@ -85,6 +85,7 @@ def handle_client(conn):
             print(f"Bytes enviados: {total_bytes_sent:,} bytes")
         except socket.error as e:
             print(f"Erro ao enviar dados para o cliente: {e}")
+        
 
 def start_tcp_server():
     with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
@@ -94,5 +95,5 @@ def start_tcp_server():
 
         while True:
             conn, addr = s.accept()  # Aceitar conexões indefinidamente
-            print(f"Nova conexão de {addr}")
+            print(f"New connection from {addr}")
             handle_client(conn)  # Lida com a conexão do cliente
