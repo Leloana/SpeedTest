@@ -18,16 +18,25 @@ def get_local_ip():
     return ip
 
 if __name__ == "__main__":
-    tipo = input("UDP ou TCP?")
-    formato = input("server ou client?")
-    
-    if formato == "server": print(get_local_ip())
-    else : 
-        ipServer = input("Insira ip do servidor: ")
+    while 1:
+        tipo = int(input("UDP[0]\nTCP[1]\n->"))
+        if tipo == 0: break
+        elif tipo == 1: break
+        print("Invalid input!")
 
-    if tipo == "UDP" :
+    while 1:
+        formato = int(input("server[0]\nclient[1]\n->"))
+        if formato == 0: break
+        elif formato == 1: break
+        print("Invalid input!")
+
+    if formato == 0: print("local ip : "+ get_local_ip())
+    if formato == 1 : 
+        ipServer = input("ip server: ")
+
+    if tipo == 0 :
         if formato == "client": start_udp_client()
         else: start_tcp_server()
-    else :
+    if tipo == 1 :
         if formato == "client": start_tcp_client()
         else: start_tcp_server()
