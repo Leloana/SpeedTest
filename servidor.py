@@ -5,19 +5,6 @@ import time
 HOST = '0.0.0.0'  # Endereço IP do servidor
 PORT = 65432      # Porta do servidor
 
-def get_local_ip():
-    # Conecta a um endereço externo para determinar o IP local, sem enviar dados reais
-    s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
-    try:
-        # O endereço de destino e a porta não importam
-        s.connect(("8.8.8.8", 80))
-        ip = s.getsockname()[0]
-    except Exception as e:
-        ip = "127.0.0.1"
-    finally:
-        s.close()
-    return ip
-
 def format_all_speeds(bps):
     gbps = bps / 10**9
     mbps = bps / 10**6
@@ -109,7 +96,3 @@ def start_tcp_server():
             conn, addr = s.accept()  # Aceitar conexões indefinidamente
             print(f"Nova conexão de {addr}")
             handle_client(conn)  # Lida com a conexão do cliente
-
-if __name__ == "__main__":
-    print(get_local_ip())
-    start_tcp_server()

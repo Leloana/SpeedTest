@@ -2,7 +2,6 @@ import socket
 import time
 
 # Configurações do cliente
-HOST = '192.168.0.120'  # Endereço IP do servidor
 PORT = 65432            # Porta do servidor
 
 def format_all_speeds(bps):
@@ -21,7 +20,7 @@ def generate_test_string():
     repeated_string = (base_string * (500 // len(base_string)))[:500]
     return repeated_string.encode('utf-8')  # Converter para bytes
 
-def start_tcp_client():
+def start_tcp_client(HOST):
     while True:  # Manter o cliente em execução para realizar múltiplas transferências
         with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
             s.connect((HOST, PORT))
@@ -81,6 +80,3 @@ def start_tcp_client():
 
             # Aguardar antes de realizar nova transferência
             input("Pressione Enter para realizar uma nova transferência...")
-
-if __name__ == "__main__":
-    start_tcp_client()

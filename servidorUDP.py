@@ -98,5 +98,3 @@ def start_udp_server():
             except socket.error as e:
                 print(f"Erro ao enviar dados para o cliente: {e}")
 
-if __name__ == "__main__":
-    start_udp_server()

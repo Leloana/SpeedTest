@@ -2,7 +2,6 @@ import socket
 import time
 
 # Configurações do cliente
-HOST = '192.168.0.120'  # Endereço IP do servidor
 PORT = 65432            # Porta do servidor
 
 def format_all_speeds(bps):
@@ -22,7 +21,7 @@ def generate_test_string():
     repeated_string = (base_string * (500 // len(base_string)))[:500]
     return repeated_string.encode('utf-8')  # Converter para bytes
 
-def start_udp_client():
+def start_udp_client(HOST):
     with socket.socket(socket.AF_INET, socket.SOCK_DGRAM) as s:
         print(f"Conectado ao servidor {HOST}:{PORT}\n")
 
@@ -105,6 +104,3 @@ def start_udp_client():
 
         # Aguardar antes de realizar nova transferência
         input("Pressione Enter para realizar uma nova transferência...")
-
-if __name__ == "__main__":
-    start_udp_client()
