@@ -97,4 +97,7 @@ def start_udp_server():
                 
             except socket.error as e:
                 print(f"Erro ao enviar dados para o cliente: {e}")
+            
+            rerun = int(input("Rerun[0]\nExit[1]\n->"))
+            if rerun == 1: break
 

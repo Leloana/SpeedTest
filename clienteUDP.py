@@ -24,7 +24,7 @@ def generate_test_string():
 def start_udp_client(HOST):
     while True:
         with socket.socket(socket.AF_INET, socket.SOCK_DGRAM) as s:
-            print(f"Started an UDP client -> host/port:{HOST}:{PORT}\n")
+            print(f"Started an UDP client -> host/port:{HOST}:{PORT}")
 
             # FASE 1: Enviar pacotes de 500 bytes continuamente por 20 segundos (UPLOAD)
             data_to_send = generate_test_string()
