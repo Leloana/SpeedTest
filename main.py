@@ -39,7 +39,7 @@ if __name__ == "__main__":
         # ============= CLIENT =============
         if formato == 1: start_udp_client(ipServer)
         # ============== SERVER ===========
-        else: start_tcp_server()
+        else: start_udp_server()
 
     # =============== TCP =============
     if tipo == 1 :

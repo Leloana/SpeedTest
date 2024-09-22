@@ -104,5 +104,4 @@ def start_udp_client(HOST):
                 print("Não foi possível calcular os pacotes perdidos, pois o número de pacotes enviados pelo servidor não foi recebido.")
 
         # Aguardar antes de realizar nova transferência
-        rerun = int(input("Rerun[0]\nExit[1]\n->"))
-        if rerun == 1: break
+        break

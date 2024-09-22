@@ -78,7 +78,5 @@ def start_tcp_client(HOST):
             print(f"Pacotes recebidos: {packet_count:,}")
             print(f"Bytes recebidos: {total_bytes_received:,} bytes")
 
-            # Aguardar antes de realizar nova transferência
-            rerun = int(input("Rerun[0]\nExit[1]\n->"))
-            if rerun == 1: break
+            break
 

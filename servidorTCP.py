@@ -97,5 +97,4 @@ def start_tcp_server():
             conn, addr = s.accept()  # Aceitar conexões indefinidamente
             print(f"New connection from {addr}")
             handle_client(conn)  # Lida com a conexão do cliente
-            rerun = int(input("Rerun[0]\nExit[1]\n->"))
-            if rerun == 1: break
+            break

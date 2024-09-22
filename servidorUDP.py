@@ -28,7 +28,7 @@ def start_udp_server():
 
         while True:
             # FASE 1: Receber pacotes do cliente por 20 segundos
-            print("Waiting for data...\n")
+            print("Waiting for data...")
 
             total_bytes_received = 0
             total_packets_received = 0
@@ -98,6 +98,5 @@ def start_udp_server():
             except socket.error as e:
                 print(f"Erro ao enviar dados para o cliente: {e}")
             
-            rerun = int(input("Rerun[0]\nExit[1]\n->"))
-            if rerun == 1: break
+            break
 
