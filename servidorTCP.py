@@ -17,11 +17,6 @@ def format_all_speeds(bps):
         f"{bps:,.2f} bps"
     )
 
-def generate_test_string():
-    base_string = "teste de rede *2024*"
-    repeated_string = (base_string * (500 // len(base_string)))[:500]
-    return repeated_string.encode('utf-8')  # Converter para bytes
-
 def handle_client(conn):
     global pacotes_recebidos
     with conn:
@@ -49,7 +44,7 @@ def handle_client(conn):
         print(f"Pacotes recebidos: {packet_count:,}")
         print(f"Bytes recebidos: {data_received:,} bytes\n")
         pacotes_recebidos = packet_count
-        
+
 def start_tcp_server():
     with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
         s.bind((HOST, PORT))
@@ -60,6 +55,6 @@ def start_tcp_server():
             conn, addr = s.accept() 
             print(f"New connection from {addr}")
             handle_client(conn) 
-            pacotes_enviados = int(input("Pacotes enviados: "));
+            pacotes_enviados = int(input("Pacotes enviados: "))
             print("Pacotes perdidos = " + str(pacotes_enviados-pacotes_recebidos))
             break

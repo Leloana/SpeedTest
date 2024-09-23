@@ -18,11 +18,6 @@ def format_all_speeds(bps):
         f"{bps:,.2f} bps"
     )
 
-def generate_test_string():
-    base_string = "teste de rede *2024*"
-    repeated_string = (base_string * (500 // len(base_string)))[:500]
-    return repeated_string.encode('utf-8')  # Converter para bytes
-
 def handle_client(server_socket, client_addr):
     global pacotes_recebidos
     print(f"Connected to {client_addr}\n")
@@ -62,7 +57,7 @@ def start_udp_server():
             data, client_addr = server_socket.recvfrom(500)  # Recebe qualquer dado para iniciar
             print(f"New connection from {client_addr}")
             handle_client(server_socket, client_addr)
-            pacotes_enviados = int(input("Pacotes enviados: "));
+            pacotes_enviados = int(input("Pacotes enviados: "))
             print("Pacotes perdidos = " + str(pacotes_enviados-pacotes_recebidos))
             break
 
