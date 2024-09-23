@@ -31,8 +31,10 @@ def handle_client(server_socket, client_addr):
     while True:
         data, addr = server_socket.recvfrom(500)  # Recebe 500 bytes por vez
         if b'UPLOAD_COMPLETE' in data:
+            print("Fim da Fase 1")
             break
         if not data:
+            print("Nenhum dado recebido, encerrando")
             break
         data_received += len(data)
         packet_count += 1

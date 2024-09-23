@@ -38,6 +38,7 @@ def start_udp_client(HOST):
             s.sendto(data_to_send, server_addr)
             total_bytes_sent += packet_size
             packet_count += 1
+            print(f"Enviado pacote {packet_count}, total enviado: {total_bytes_sent} bytes")
         end_time = time.time()
 
         upload_time = end_time - start_time
