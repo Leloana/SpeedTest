@@ -98,5 +98,5 @@ def start_udp_server():
             except socket.error as e:
                 print(f"Erro ao enviar dados para o cliente: {e}")
             
-            input("teste")
+            input("Safado")
 

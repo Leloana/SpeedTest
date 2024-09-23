@@ -64,7 +64,7 @@ def start_udp_client(HOST):
             # Receber pacotes de dados por 20 segundos
             while time.time() - start_time < 20:
                 try:
-                    s.settimeout(5)  # Timeout de 5 segundos para dar mais tempo ao cliente
+                    s.settimeout(500000)  # Timeout de 5 segundos para dar mais tempo ao cliente
                     data, _ = s.recvfrom(packet_size)
                     total_bytes_received += len(data)
                     total_packets_received += 1
@@ -99,7 +99,7 @@ def start_udp_client(HOST):
             # Calcular pacotes perdidos durante o download
             if total_packets_sent_by_server > 0:
                 lost_packets_download = total_packets_sent_by_server - total_packets_received
-                print(f"Pacotes perdidos no download: {lost_packets_download}\n")
+                print(f"Pacotes perdidos no download: {lost_packets_download}")
             else:
                 print("Não foi possível calcular os pacotes perdidos, pois o número de pacotes enviados pelo servidor não foi recebido.")
 

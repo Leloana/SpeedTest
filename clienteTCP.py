@@ -1,8 +1,7 @@
 import socket
 import time
 
-# Configurações do cliente
-PORT = 65432            # Porta do servidor
+PORT = 65432            
 
 def format_all_speeds(bps):
     gbps = bps / 10**9
@@ -21,22 +20,23 @@ def generate_test_string():
     return repeated_string.encode('utf-8')  # Converter para bytes
 
 def start_tcp_client(HOST):
-    while True:  # Manter o cliente em execução para realizar múltiplas transferências
+    while True:  
         with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
             s.connect((HOST, PORT))
-            print(f"Started a TCP client -> host/port:{HOST}:{PORT}")
+            print(f"Conectado ao servidor {HOST}:{PORT}")
 
-            # FASE 1: Enviar múltiplos pacotes de 500 bytes por 20 segundos (UPLOAD)
-            data_to_send = generate_test_string() * 2000
+            # FASE 1: Enviar múltiplos pacotes de 500 bytes por 20 segundos 
+            data_to_send = generate_test_string() 
             packet_size = 500
             total_bytes_sent = 0
             packet_count = 0
             start_time = time.time()
-            while time.time() - start_time < 20:  # Loop de upload por 20 segundos
-                for i in range(0, len(data_to_send), packet_size):
-                    s.sendall(data_to_send[i:i+packet_size])
-                    total_bytes_sent += packet_size
-                    packet_count += 1
+
+            # Limitar o upload a 20 segundos
+            while time.time() - start_time < 20:
+                s.sendall(data_to_send)
+                total_bytes_sent += packet_size
+                packet_count += 1
             end_time = time.time()
 
             upload_time = end_time - start_time
@@ -49,16 +49,17 @@ def start_tcp_client(HOST):
             print(f"Taxa de Upload:\n{format_all_speeds(upload_bps)}")
             print(f"Pacotes por segundo: {upload_pps:,.2f}")
             print(f"Pacotes enviados: {packet_count:,}")
-            print(f"Bytes enviados: {total_bytes_sent:,} bytes")
+            print(f"Bytes enviados: {total_bytes_sent:,} bytes\n")
 
-            # Enviar uma notificação ao servidor indicando que o upload terminou
             s.sendall(b'UPLOAD_COMPLETE')
 
-            # FASE 2: Receber os dados por 20 segundos (DOWNLOAD)
+            # FASE 2: Receber os dados por 20 segundos 
             total_bytes_received = 0
             packet_count = 0
             start_time = time.time()
-            while time.time() - start_time < 20:  # Loop de download por 20 segundos
+
+            # Limitar o download a 20 segundos
+            while time.time() - start_time < 20:
                 data = s.recv(packet_size)
                 if not data:
                     break
@@ -78,5 +79,7 @@ def start_tcp_client(HOST):
             print(f"Pacotes recebidos: {packet_count:,}")
             print(f"Bytes recebidos: {total_bytes_received:,} bytes")
 
-            break
-
+            confirmation = s.recv(1024)
+            if confirmation == b'UPLOAD_COMPLETE':
+                print("Upload finalizado pelo servidor. Encerrando a conexão.")
+            break 
