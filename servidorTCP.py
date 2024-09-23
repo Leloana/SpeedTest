@@ -26,24 +26,26 @@ def handle_client(conn):
         data_received = 0
         packet_count = 0
         while True:
-            data = conn.recv(500)  # Recebe 500 bytes por vez
+            data = conn.recv(500)
             if b'UPLOAD_COMPLETE' in data:
                 break
-            if not data:
+            if len(data) == 0:
                 break
+            # Ajuste o número de pacotes com base no tamanho real dos dados recebidos
             data_received += len(data)
-            packet_count += 1
+            packet_count += (len(data) // 500) + (1 if len(data) % 500 != 0 else 0)
         end_time = time.time()
 
-        upload_time = end_time - start_time 
+        upload_time = end_time - start_time
         upload_bps = (data_received * 8) / upload_time
-        upload_pps = packet_count / upload_time 
+        upload_pps = packet_count / upload_time
         print(f"Tempo de download: {upload_time} segundos")
         print(f"Taxa de Download:{format_all_speeds(upload_bps)}")
         print(f"Pacotes por segundo: {upload_pps:,.2f}")
         print(f"Pacotes recebidos: {packet_count:,}")
         print(f"Bytes recebidos: {data_received:,} bytes\n")
         pacotes_recebidos = packet_count
+
 
 def start_tcp_server():
     with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
