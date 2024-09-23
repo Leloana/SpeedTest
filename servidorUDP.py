@@ -73,7 +73,7 @@ def start_udp_server():
 
                 while time.time() - start_time < 20:  # Enviar pacotes por 20 segundos
                     s.sendto(data_to_send, client_addr)
-                    total_bytes_sent += 500
+                    total_bytes_sent += len(data_to_send)  # Corrigido para calcular o tamanho real dos dados
                     total_packets_sent_to_client += 1
 
                 end_time = time.time()
@@ -98,5 +98,5 @@ def start_udp_server():
             except socket.error as e:
                 print(f"Erro ao enviar dados para o cliente: {e}")
             
-            break
+            input("teste")
 
