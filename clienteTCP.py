@@ -52,34 +52,3 @@ def start_tcp_client(HOST):
             print(f"Bytes enviados: {total_bytes_sent:,} bytes\n")
 
             s.sendall(b'UPLOAD_COMPLETE')
-
-            # FASE 2: Receber os dados por 20 segundos 
-            total_bytes_received = 0
-            packet_count = 0
-            start_time = time.time()
-
-            # Limitar o download a 20 segundos
-            while time.time() - start_time < 20:
-                data = s.recv(packet_size)
-                if not data:
-                    break
-                total_bytes_received += len(data)
-                packet_count += 1
-            end_time = time.time()
-
-            download_time = end_time - start_time
-            print(f"Tempo de download: {download_time} segundos")
-            if download_time == 0:
-                download_time = 1e-9  # Prevenir divisão por zero
-
-            download_bps = (total_bytes_received * 8) / download_time
-            download_pps = packet_count / download_time
-            print(f"Taxa de Download:\n{format_all_speeds(download_bps)}")
-            print(f"Pacotes por segundo: {download_pps:,.2f}")
-            print(f"Pacotes recebidos: {packet_count:,}")
-            print(f"Bytes recebidos: {total_bytes_received:,} bytes")
-
-            confirmation = s.recv(1024)
-            if confirmation == b'UPLOAD_COMPLETE':
-                print("Upload finalizado pelo servidor. Encerrando a conexão.")
-            break 
