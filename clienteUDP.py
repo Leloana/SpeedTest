@@ -2,7 +2,7 @@ import socket
 import time
 
 # Configurações do cliente
-PORT = 65432            # Porta do servidor
+PORT = 12345            # Porta do servidor
 
 def format_all_speeds(bps):
     gbps = bps / 10**9
