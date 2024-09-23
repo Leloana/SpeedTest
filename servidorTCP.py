@@ -2,7 +2,7 @@ import socket
 import time
 
 HOST = '0.0.0.0'  
-PORT = 65430 
+PORT = 65432 
 
 def format_all_speeds(bps):
     gbps = bps / 10**9
@@ -22,7 +22,7 @@ def generate_test_string():
 
 def handle_client(conn):
     with conn:
-        print(f"Conectado a {conn.getpeername()}\n")
+        print(f"Connected to {conn.getpeername()}\n")
 
         start_time = time.time()
         data_received = 0
@@ -79,20 +79,22 @@ def handle_client(conn):
             try:
                 conn.sendall(b'UPLOAD_COMPLETE')
             except socket.error:
-                print("Cliente já fechou a conexão. Não foi possível enviar confirmação.")
+                print("Connection is not possible.")
 
         except socket.error as e:
-            print(f"Erro ao enviar dados para o cliente: {e}\n")
+            print(f"Error to sent client data: {e}\n")
         finally:
-            print("Finalizando conexão com o cliente.\n")
+            print("Ending client connection.\n")
 
 def start_tcp_server():
     with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
         s.bind((HOST, PORT))
         s.listen()
-        print(f"Servidor ouvindo na porta {PORT}...")
+        print(f"Started an TCP server -> port:{PORT}...")
 
         while True:
             conn, addr = s.accept() 
-            print(f"Nova conexão de {addr}")
+            print(f"New connection from {addr}")
             handle_client(conn) 
+            input("Finalizar")
+            break
