@@ -33,7 +33,10 @@ def handle_client(conn):
                     data = conn.recv(500)
                     
                     if b'UPLOAD_COMPLETE' in data:
-                        data = data.replace(b'UPLOAD_COMPLETE', b'')  # Remove o pacote de término
+                        # Extrai o número de pacotes enviados do cliente
+                        info = data.decode('utf-8').split(',')
+                        pacotes_enviados = int(info[1])
+                        data = data.replace(f"UPLOAD_COMPLETE,{pacotes_enviados}".encode('utf-8'), b'')  # Remove o pacote de término
                         if len(data) == 0:
                             break
                     
@@ -66,6 +69,7 @@ def handle_client(conn):
             print(f"Bytes recebidos: {data_received:,} bytes\n")
 
             pacotes_recebidos = packet_count
+            print(f"Pacotes perdidos = {pacotes_enviados - pacotes_recebidos}")
             return True  # Operação bem-sucedida
 
     except Exception as e:
@@ -83,12 +87,8 @@ def start_tcp_server():
                 conn, addr = s.accept()
                 print(f"New connection from {addr}")
 
-                # Se a comunicação for bem-sucedida, só então solicita pacotes enviados
-                if handle_client(conn):
-                    pacotes_enviados = int(input("Pacotes enviados: "))
-                    print("Pacotes perdidos = " + str(pacotes_enviados - pacotes_recebidos))
-                else:
-                    print("Erro na comunicação com o cliente, pacotes enviados não solicitados.")
+                # Se a comunicação for bem-sucedida
+                handle_client(conn)
                 
                 break  # Encerra o loop após lidar com um cliente
 
