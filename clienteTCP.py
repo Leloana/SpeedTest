@@ -51,7 +51,8 @@ def start_tcp_client(HOST):
             print(f"Pacotes enviados: {packet_count:,}")
             print(f"Bytes enviados: {total_bytes_sent:,} bytes\n")
 
-            s.sendall(b'UPLOAD_COMPLETE')
+            # Enviar mensagem indicando término e número de pacotes enviados
+            s.sendall(f"UPLOAD_COMPLETE,{packet_count}".encode('utf-8'))
     except socket.timeout:
         print("Rede instável.")
     except Exception as ex:

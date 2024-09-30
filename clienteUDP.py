@@ -42,10 +42,9 @@ def start_udp_client(HOST):
                     s.sendto(data_to_send, server_addr)
                     total_bytes_sent += packet_size
                     packet_count += 1
-                    # print(f"Enviado pacote {packet_count}, total enviado: {total_bytes_sent} bytes")
                 except socket.timeout:
                     print(f"Timeout atingido ao enviar pacote {packet_count}")
-                    break  # Interrompe o loop se o timeout for atingido
+                    break
                 except socket.error as e:
                     print(f"Erro de socket ao enviar pacote {packet_count}: {e}")
                     break
@@ -64,11 +63,8 @@ def start_udp_client(HOST):
             print(f"Pacotes enviados: {packet_count:,}")
             print(f"Bytes enviados: {total_bytes_sent:,} bytes\n")
 
-            # FASE 2: Enviar mensagem de término para o servidor
-            try:
-                s.sendto(b'UPLOAD_COMPLETE', server_addr)
-            except socket.error as e:
-                print(f"Erro ao enviar 'UPLOAD_COMPLETE': {e}")
+            # FASE 2: Enviar mensagem de término e a contagem de pacotes enviados para o servidor
+            s.sendto(f"UPLOAD_COMPLETE,{packet_count}".encode('utf-8'), server_addr)
 
         except Exception as e:
             print(f"Ocorreu um erro inesperado: {e}")
