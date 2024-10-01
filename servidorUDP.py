@@ -45,7 +45,7 @@ def handle_client(server_socket, client_addr):
                 packet_count += 1
             except socket.timeout:
                 print(f"Timeout de {TIMEOUT} segundos atingido sem receber dados. Encerrando conexão.")
-                return False  # Retorna False em caso de erro de timeout
+                break # Retorna False em caso de erro de timeout
     except Exception as e:
         print(f"Erro durante a comunicação: {e}")
         return False  # Retorna False em caso de qualquer outro erro
